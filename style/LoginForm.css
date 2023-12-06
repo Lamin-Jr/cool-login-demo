@@ -1,0 +1,16 @@
+.longin-container {
+  padding: 16px;
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  background-color: #f2f4f2;
+  align-content: center;
+}
+
+.login-form-btn {
+  color: black;
+  width: 50%;
+  padding: 15px;
+  margin: 24px 10px 9px 10px;
+}
