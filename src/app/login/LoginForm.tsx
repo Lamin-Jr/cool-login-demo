@@ -7,12 +7,12 @@ import SelectField from '@/SelectField';
 import { TextInputField } from '@/InputField';
 import '@/LoginForm.css';
 import UserService from '@/userService';
-import Link from 'next/link';
 
 const LoginForm = () => {
   const [formField, setFormField] = useState<LogInFormFieldType | undefined>();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [inputErroR, setInputError] = useState(false);
   const handleLogin = async () => {
     setLoading(true);
     setError(null);
@@ -27,13 +27,14 @@ const LoginForm = () => {
   };
   const onHandleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value, name } = event.target;
+
     setFormField(
       (prevState) => ({ ...prevState, [name]: value }) as LogInFormFieldType,
     );
   };
 
   const handleGetusers = async () => {
-    const response  = await UserService.get('/users');
+    const response  = await UserService.get('users?page=1&per_page=100');
 
   };
 
@@ -50,6 +51,7 @@ const LoginForm = () => {
         />
         <TextInputField
           id="email"
+          error={inputErroR}
           label="email"
           name="email"
           type="email"
@@ -91,20 +93,11 @@ const LoginForm = () => {
           {loading ? 'Loading...' : 'Create User'}
         </Button>
       </form>
-      {/*<Button*/}
-      {/*  variant="contained"*/}
-      {/*  className={'login-form-btn'}*/}
-      {/*  fullWidth={false}*/}
-      {/*  onClick={handleGetusers}*/}
-      {/*>*/}
-      {/*  Show all Users*/}
-      {/*</Button>*/}
-      <Link
-        href="/userList/userlist"
-        // onClick={handleGetusers}
+      <Button
+        onClick={handleGetusers}
       >
         Show all Users
-      </Link>
+      </Button>
 
     </Paper>
   );
